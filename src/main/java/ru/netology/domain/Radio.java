@@ -1,58 +1,74 @@
 package ru.netology.domain;
 
 public class Radio {
-    private int increaseVolume;
     private int currentStation;
+    private int currentVolume;
+    private final int minStation = 0;
+    private final int maxStation = 9;
+    private final int minVolume = 0;
+    private final int maxVolume = 10;
 
-    public int getIncreaseVolume() {
-        return increaseVolume;
+
+    public int getMinVolume() {
+        return minVolume;
     }
 
-    public void setIncreaseVolume(int increaseVolume) {
-        if (increaseVolume > 10) {
-            return;
-        }
-        if (increaseVolume < 0) {
-            return;
-        }
-        this.increaseVolume = increaseVolume;
+    public int getMaxVolume() {
+        return maxVolume;
     }
 
     public int getCurrentStation() {
         return currentStation;
     }
 
+    public int getCurrentVolume() {
+        return currentVolume;
+    }
+
     public void setCurrentStation(int currentStation) {
-        if (currentStation > 9) {
-            currentStation = 0;
+        if (currentStation > maxStation) {
+            return;
         }
-        if (currentStation < 0) {
-            currentStation = 9;
+        if (currentStation < minStation) {
+            return;
         }
         this.currentStation = currentStation;
     }
-    public void currentStationByOneForward() {
-        if (currentStation < 9) {
-            setCurrentStation(currentStation + 1);
+
+    public void setCurrentVolume(int currentVolume) {
+        if (currentVolume > maxVolume) {
+            return;
         }
+        if (currentVolume < minVolume) {
+            return;
+        }
+        this.currentVolume = currentVolume;
     }
 
-    public void currentStationByOneBack() {
-        if (currentStation > 0) {
-            setCurrentStation(currentStation - 1);
-        }
+    public void increaseCurrentVolume() {
+        if (currentVolume < maxVolume)
+            currentVolume++;
     }
 
-    public void increaseVolumeByOneForward() {
-        if (increaseVolume < 10) {
-            setIncreaseVolume(increaseVolume + 1);
-        }
+    public void decreaseCurrentVolume() {
+        if (currentVolume > minVolume)
+            currentVolume--;
     }
 
-    public void increaseVolumeByOneBack() {
-        if (increaseVolume > 0) {
-            setIncreaseVolume(increaseVolume - 1);
+    public void nextStation() {
+        if (currentStation == maxStation) {
+            currentStation = minStation;
+            return;
         }
+        currentStation++;
+    }
+
+    public void prevStation() {
+        if (currentStation == minStation) {
+            currentStation = maxStation;
+            return;
+        }
+        currentStation--;
     }
 
 }
